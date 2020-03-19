@@ -85,14 +85,22 @@ public class KaleidoClientCode {
 		System.out.println("Compound "+ID+" has been assigned to Well "+wellID+".\n");
 		prompt();
 	}
-
+	/**
+	 * This method helps the compoundRegistration method
+	 * @param compound
+	 * @param wellID
+	 */
 	public static void compoundRegistrationHelper(String compound, String wellID) {
-		String[] seperator=seperateIDs(wellID);
-		Plate plate=getPlate(seperator[0]);
-		Well newWell=new Well(seperator[1], compound);
-		plate.addCompoundToAWell(newWell);
+		String[] separator=separateIDs(wellID); //splits the plate and well ID
+		Plate plate=getPlate(separator[0]); //gets the plate
+		Well newWell=new Well(separator[1], compound); //creates well object
+		plate.addCompoundToAWell(newWell); //adds it to the plate
 	}
 
+	/**
+	 * This method transfers compounds to wells
+	 * @param scanner
+	 */
 	public static void wellTransfer(Scanner scanner) {
 		System.out.print("\nPlease Enter the Well you want to Transfer contents from: ");
 		String wellID=scanner.next();
@@ -102,26 +110,34 @@ public class KaleidoClientCode {
 		wellTransferHelper(wellID, wellsID); //calls a helper method
 		System.out.println("Well "+wellID+" contents has been Transferred to "+wellsID+".\n");
 		prompt();
-		
 	}
 
+	/**
+	 * This method helps the wellTransfer method
+	 * @param wellID
+	 * @param wellsID
+	 */
 	public static void wellTransferHelper(String wellID, String wellsID) {
-		String[] seperator=seperateIDs(wellID);
-		Plate plate=getPlate(seperator[0]);
-		String compound=plate.returnCompound(seperator[1]); 
+		String[] seperator=separateIDs(wellID); //separates the plate and well ID
+		Plate plate=getPlate(seperator[0]); //gets plate
+		String compound=plate.returnCompound(seperator[1]); //gets compound
 		
 		String[] wellsArray=wellsID.split(","); //splits the wells string to break down the number of wells
 		for(int i=0; i<wellsArray.length; i++) {
 			String newWellString=wellsArray[i]; 
 			newWellString=newWellString.trim();
-			String[] extraSeperator=seperateIDs(newWellString);
-			Plate newPlate=new Plate(extraSeperator[0]);  //create a new plate
-			Well newWell=new Well(extraSeperator[1], compound);
-			newPlate.addCompoundToAWell(newWell);
+			String[] extraSeparator=separateIDs(newWellString); //separates the plate and well ID
+			Plate newPlate=new Plate(extraSeparator[0]);  //create a new plate
+			Well newWell=new Well(extraSeparator[1], compound); //creates a new well
+			newPlate.addCompoundToAWell(newWell); //adds it to the plate
 			plateSet.add(newPlate);
 		}
 	}
-
+	
+	/**
+	 * This method gets the type of compound that is in a particular well
+	 * @param scanner
+	 */
 	public static void compoundRequest(Scanner scanner) {
 		System.out.print("\nPlease Enter the Well you want to Request a Compound type from: ");
 		String ID=scanner.next();
@@ -134,27 +150,42 @@ public class KaleidoClientCode {
 		}
 		prompt();
 	}
-
+	
+	/**
+	 * This method helps to return the type of compound
+	 * @param wellID
+	 * @return String compound
+	 */
 	public static String compoundRequestHelper(String wellID) {
-		String[] seperator=seperateIDs(wellID);
+		String[] seperator=separateIDs(wellID);
 		Plate plate=getPlate(seperator[0]);
 		String compound=plate.returnCompound(seperator[1]);
 		return compound;
 	}
-
-	public static String[] seperateIDs(String ID) {
+	
+	/**
+	 * This method separates the plate and well ID
+	 * @param ID
+	 * @return String[]
+	 */
+	public static String[] separateIDs(String ID) {
 		int periodPoint=0;
-		String[] seperator=new String[2];
+		String[] separator=new String[2];
 		for(int i=0; i<ID.length(); i++) {
 			if(ID.charAt(i)=='.') {
 				periodPoint=i;
 			}
 		}
-		seperator[0]=ID.substring(0, periodPoint);
-		seperator[1]=ID.substring(periodPoint+1, ID.length());
-		return seperator;
+		separator[0]=ID.substring(0, periodPoint);
+		separator[1]=ID.substring(periodPoint+1, ID.length());
+		return separator;
 	}
 	
+	/**
+	 * This method gets the plate
+	 * @param ID
+	 * @return plate
+	 */
 	public static Plate getPlate(String ID) {
 		for(Plate plate: plateSet) {
 			if(plate.getID().equals(ID)) {
