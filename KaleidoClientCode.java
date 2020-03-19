@@ -84,10 +84,33 @@ public class KaleidoClientCode {
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 	private static void finish() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+		public String[] seperateIDs(String ID) {
+		int periodPoint=0;
+		String[] seperator=new String[2];
+		for(int i=0; i<ID.length(); i++) {
+			if(ID.charAt(i)=='.') {
+				periodPoint=i;
+			}
+		}
+		seperator[0]=ID.substring(0, periodPoint-1);
+		seperator[1]=ID.substring(periodPoint+1, ID.length());
+		return seperator;
+	}
+	
+	public Plate getPlate(String ID) {
+		for(Plate plate: plateSet) {
+			if(plate.getID().equals(ID)) {
+				return plate;
+			}
+		}
+		return null;
 	}
 
 }
