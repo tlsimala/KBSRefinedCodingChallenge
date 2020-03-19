@@ -67,8 +67,11 @@ public class KaleidoClientCode {
 	   prompt(); 
 	}
 
-	private static void compoundRegistration(Scanner scanner) {
-		// TODO Auto-generated method stub
+	public static void compoundRegistration(Scanner scanner) {
+	   System.out.print("\nPlease Enter the Compound you want to Register: ");
+	   String ID=scanner.next();
+	   System.out.print("Please Enter the Well you want to Assign "+ID+" to: ");
+	   String wellID=scanner.next();
 		
 	}
 
