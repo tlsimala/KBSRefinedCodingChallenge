@@ -1,3 +1,4 @@
+
 import java.util.HashSet;
 import java.util.Scanner;
 
@@ -23,8 +24,8 @@ public class KaleidoClientCode {
 	 * A method which continues the prompt from the main method and prompts the user for information.
 	 */
 	public static void prompt() {
-		System.out.println("\nType 1 to Register a New Plate.”+”\n”"
-				+ "+”Type 2 to Register a Compound to a Well."+"\n"
+		System.out.println("\nType 1 to Register a New Plate.\n"
+				+ "Type 2 to Register a Compound to a Well.\n"
 				+"Type 3 to Transfer Contents from a Well to other Wells."
 				+"\n"+ "Type 4 to Request type of Compound from a Well"
 				+"\n"+"Type 0 to Finish the session.\n");
@@ -52,7 +53,6 @@ public class KaleidoClientCode {
 			compoundRequest(scanner);
 			break;
 		case 0:
-			finish();
 			scanner.close();
 			break;
 		}
@@ -81,7 +81,7 @@ public class KaleidoClientCode {
 		System.out.print("Please Enter the Well you want to Assign "+ID+" to: ");
 		String wellID=scanner.next();
 		compoundRegistrationHelper(ID, wellID);
-		System.out.println("Compound "+ID+" has been assigned to Well "+ID+".\n");
+		System.out.println("Compound "+ID+" has been assigned to Well "+wellID+".\n");
 		prompt();
 	}
 
@@ -109,7 +109,7 @@ public class KaleidoClientCode {
 				periodPoint=i;
 			}
 		}
-		seperator[0]=ID.substring(0, periodPoint-1);
+		seperator[0]=ID.substring(0, periodPoint);
 		seperator[1]=ID.substring(periodPoint+1, ID.length());
 		return seperator;
 	}
@@ -122,10 +122,4 @@ public class KaleidoClientCode {
 		}
 		return null;
 	}
-
-	public static void finish() {
-		
-		
-	}
-
 }
