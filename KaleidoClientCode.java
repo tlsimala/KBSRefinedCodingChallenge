@@ -1,5 +1,5 @@
-import java.util.Scanner;
 import java.util.HashSet;
+import java.util.Scanner;
 
 /**
  * @author tlsimala
@@ -10,12 +10,11 @@ import java.util.HashSet;
  *
  */
 public class KaleidoClientCode {
+	public static HashSet<Plate> plateSet=new HashSet<Plate>();
 	/**
 	 * The main method which calls the prompt method
 	 * @param args
 	 */
-	public static HashSet<Plate> plateSet=new HashSet<Plate>();
-	
 	public static void main(String[] args) {
 		prompt();
 	}
@@ -31,7 +30,8 @@ public class KaleidoClientCode {
 				+"\n"+"Type 0 to Finish the session.\n");
 		collectInput();
 	}
-		/**
+	
+	/**
 	 * This method collects the users choices and calls the appropriate methods.
 	 */
 	public static void collectInput() {
@@ -57,41 +57,51 @@ public class KaleidoClientCode {
 			break;
 		}
 	}
-
+	
+	/**
+	 * This method registers a new plate 
+	 */
 	public static void plateRegistration(Scanner scanner) {
-	   System.out.print("\nPlease Enter the Plate ID you want to Register: ");
-	   String ID=scanner.next();
-	   Plate plate=new Plate(ID);
-	   plateSet.add(plate);
-	   System.out.println("Plate "+ID+" has been registered."+"\n");
-	   prompt(); 
+		System.out.print("\nPlease Enter the Plate ID you want to Register: ");
+		String ID=scanner.next();
+		Plate plate=new Plate(ID);
+		plateSet.add(plate);
+		System.out.println("Plate "+ID+" has been registered."+"\n");
+		prompt(); 
 	}
-
+	
+	/**
+	 * This method registers a compound to a well
+	 * ASSUMPTION: I am assuming the scientist will type the plate number with the well ID 
+	 * for instance, p-12345.A1
+	 */
 	public static void compoundRegistration(Scanner scanner) {
-	   System.out.print("\nPlease Enter the Compound you want to Register: ");
-	   String ID=scanner.next();
-	   System.out.print("Please Enter the Well you want to Assign "+ID+" to: ");
-	   String wellID=scanner.next();
+		System.out.print("\nPlease Enter the Compound you want to Register: ");
+		String ID=scanner.next();
+		System.out.print("Please Enter the Well you want to Assign "+ID+" to: ");
+		String wellID=scanner.next();
+		compoundRegistrationHelper(ID, wellID);
+		System.out.println("Compound "+ID+" has been assigned to Well "+ID+".\n");
+		prompt();
+	}
+
+	public static void compoundRegistrationHelper(String compound, String wellID) {
+		String[] seperator=seperateIDs(wellID);
+		Plate plate=getPlate(seperator[0]);
+		Well newWell=new Well(seperator[1], compound);
+		plate.addCompoundToAWell(newWell);
+	}
+
+	public static void wellTrasnfer(Scanner scanner) {
+		
 		
 	}
 
-	private static void wellTrasnfer(Scanner scanner) {
-		// TODO Auto-generated method stub
+	public static void compoundRequest(Scanner scanner) {
+		
 		
 	}
-
-	private static void compoundRequest(Scanner scanner) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-
-	private static void finish() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-		public static String[] seperateIDs(String ID) {
+	public static String[] seperateIDs(String ID) {
 		int periodPoint=0;
 		String[] seperator=new String[2];
 		for(int i=0; i<ID.length(); i++) {
@@ -111,6 +121,11 @@ public class KaleidoClientCode {
 			}
 		}
 		return null;
+	}
+
+	public static void finish() {
+		
+		
 	}
 
 }
