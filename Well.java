@@ -1,25 +1,29 @@
+
 public class Well {
+	
 	private String ID;
 	private String compound;
 	/**
-	 * The constructor
-	 * @param wellId
-	 * @param compound String
+	 * Constructor
+	 * @param wellID
+	 * @param compoundString
 	 */
 	public Well(String wellID, String compoundString) {
 		this.ID=wellID;
 		this.compound=compoundString;
 	}
+	
 	/**
-	 * This method returns the ID
-	 * @param args
+	 * Gets Well ID
+	 * @return String ID
 	 */
 	public String getID() {
 		return ID;
 	}
+	
 	/**
-	 * This method gets the type of compound associated with the well
-	 * @param args
+	 * Gets Compound
+	 * @return String compound
 	 */
 	public String getCompound() {
 		return compound;
