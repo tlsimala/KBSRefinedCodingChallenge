@@ -91,7 +91,7 @@ public class KaleidoClientCode {
 		
 	}
 	
-		public String[] seperateIDs(String ID) {
+		public static String[] seperateIDs(String ID) {
 		int periodPoint=0;
 		String[] seperator=new String[2];
 		for(int i=0; i<ID.length(); i++) {
@@ -104,7 +104,7 @@ public class KaleidoClientCode {
 		return seperator;
 	}
 	
-	public Plate getPlate(String ID) {
+	public static Plate getPlate(String ID) {
 		for(Plate plate: plateSet) {
 			if(plate.getID().equals(ID)) {
 				return plate;
