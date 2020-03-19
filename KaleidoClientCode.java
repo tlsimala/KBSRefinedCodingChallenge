@@ -28,4 +28,56 @@ public class KaleidoClientCode {
 				+"\n"+"Type 0 to Finish the session.\n");
 		collectInput();
 	}
-  }
+		/**
+	 * This method collects the users choices and calls the appropriate methods.
+	 */
+	public static void collectInput() {
+		Scanner scanner=new Scanner(System.in);
+		int command=scanner.nextInt();
+
+		switch(command) {
+		case 1:
+			plateRegistration(scanner);
+			break;
+		case 2:
+			compoundRegistration(scanner);
+			break;
+		case 3:
+			wellTrasnfer(scanner);
+			break;
+		case 4:
+			compoundRequest(scanner);
+			break;
+		case 0:
+			finish();
+			scanner.close();
+			break;
+		}
+	}
+
+	private static void plateRegistration(Scanner scanner) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void compoundRegistration(Scanner scanner) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void wellTrasnfer(Scanner scanner) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void compoundRequest(Scanner scanner) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void finish() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
