@@ -14,4 +14,12 @@ public class Plate {
 	public void addCompoundToAWell(Well well) {
 		wellSet.add(well);
 	}
+	public String returnCompound(String wellID) {
+		for(Well well: wellSet) {
+			if(well.getID().equals(wellID)) {
+				return well.getCompound();
+			}
+		}
+		return "";
+	}
 }
