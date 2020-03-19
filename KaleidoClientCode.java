@@ -47,7 +47,7 @@ public class KaleidoClientCode {
 			compoundRegistration(scanner);
 			break;
 		case 3:
-			wellTrasnfer(scanner);
+			wellTransfer(scanner);
 			break;
 		case 4:
 			compoundRequest(scanner);
@@ -85,17 +85,41 @@ public class KaleidoClientCode {
 		prompt();
 	}
 
-	public static void compoundRegistrationHelper(String compound, String wellID) {
-		String[] seperator=seperateIDs(wellID);
-		Plate plate=getPlate(seperator[0]);
-		Well newWell=new Well(seperator[1], compound);
-		plate.addCompoundToAWell(newWell);
+	public static void wellTransfer(Scanner scanner) {
+		System.out.print("\nPlease Enter the Well you want to Transfer contents from: ");
+		String wellID=scanner.next();
+		System.out.print("Please Enter the Well/Wells you want to Transfer contents to: ");
+		scanner.nextLine();
+		String wellsID=scanner.nextLine();
+		wellTransferHelper(wellID, wellsID); //calls a helper method
+		System.out.println("Well "+wellID+" contents has been Transferred to "+wellsID+".\n");
+		prompt();
+		
 	}
 
-	public static void wellTrasnfer(Scanner scanner) {
+	public static void wellTransferHelper(String wellID, String wellsID) {
+		String[] seperator=seperateIDs(wellID);
+		Plate plate=getPlate(seperator[0]);
+		String compound=plate.returnCompound(seperator[1]); 
+		
+		String[] wellsArray=wellsID.split(","); //splits the wells string to break down the number of wells
+		for(int i=0; i<wellsArray.length; i++) {
+			String newWellString=wellsArray[i]; 
+			//newPlateString=newPlateString.substring(0);//handle the space
+			newWellString=newWellString.trim();
+			String[] extraSeperator=seperateIDs(newWellString);
+			Plate newPlate=new Plate(extraSeperator[0]);  //create a new plate
+			Well newWell=new Well(extraSeperator[1], compound);
+			newPlate.addCompoundToAWell(newWell);
+			plateSet.add(newPlate);
+		}
+		
+		//get the compound and make new well objects for the wells it is transferring it to
+		//also would have to make new plates
 		
 		
 	}
+
 
 	public static void compoundRequest(Scanner scanner) {
 		
