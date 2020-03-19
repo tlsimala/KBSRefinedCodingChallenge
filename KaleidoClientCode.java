@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.HashSet;
 
 /**
  * @author tlsimala
@@ -13,6 +14,8 @@ public class KaleidoClientCode {
 	 * The main method which calls the prompt method
 	 * @param args
 	 */
+	public static HashSet<Plate> plateSet=new HashSet<Plate>();
+	
 	public static void main(String[] args) {
 		prompt();
 	}
@@ -55,9 +58,13 @@ public class KaleidoClientCode {
 		}
 	}
 
-	private static void plateRegistration(Scanner scanner) {
-		// TODO Auto-generated method stub
-		
+	public static void plateRegistration(Scanner scanner) {
+	   System.out.print("\nPlease Enter the Plate ID you want to Register: ");
+	   String ID=scanner.next();
+	   Plate plate=new Plate(ID);
+	   plateSet.add(plate);
+	   System.out.println("Plate "+ID+" has been registered."+"\n");
+	   prompt(); 
 	}
 
 	private static void compoundRegistration(Scanner scanner) {
