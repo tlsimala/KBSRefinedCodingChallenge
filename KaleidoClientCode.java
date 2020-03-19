@@ -60,6 +60,7 @@ public class KaleidoClientCode {
 	
 	/**
 	 * This method registers a new plate 
+	 * ASSUMPTION: The plate entered will not have a well ID attached to it 
 	 */
 	public static void plateRegistration(Scanner scanner) {
 		System.out.print("\nPlease Enter the Plate ID you want to Register: ");
@@ -85,6 +86,13 @@ public class KaleidoClientCode {
 		prompt();
 	}
 
+	public static void compoundRegistrationHelper(String compound, String wellID) {
+		String[] seperator=seperateIDs(wellID);
+		Plate plate=getPlate(seperator[0]);
+		Well newWell=new Well(seperator[1], compound);
+		plate.addCompoundToAWell(newWell);
+	}
+
 	public static void wellTransfer(Scanner scanner) {
 		System.out.print("\nPlease Enter the Well you want to Transfer contents from: ");
 		String wellID=scanner.next();
@@ -105,7 +113,6 @@ public class KaleidoClientCode {
 		String[] wellsArray=wellsID.split(","); //splits the wells string to break down the number of wells
 		for(int i=0; i<wellsArray.length; i++) {
 			String newWellString=wellsArray[i]; 
-			//newPlateString=newPlateString.substring(0);//handle the space
 			newWellString=newWellString.trim();
 			String[] extraSeperator=seperateIDs(newWellString);
 			Plate newPlate=new Plate(extraSeperator[0]);  //create a new plate
@@ -113,18 +120,28 @@ public class KaleidoClientCode {
 			newPlate.addCompoundToAWell(newWell);
 			plateSet.add(newPlate);
 		}
-		
-		//get the compound and make new well objects for the wells it is transferring it to
-		//also would have to make new plates
-		
-		
 	}
-
 
 	public static void compoundRequest(Scanner scanner) {
-		
-		
+		System.out.print("\nPlease Enter the Well you want to Request a Compound type from: ");
+		String ID=scanner.next();
+		String compound=compoundRequestHelper(ID); //calls a helper method
+		if(!compound.equals("")) {
+			System.out.println("Well "+ ID+" has Compound "+compound.toString()+".");
+		}
+		else {
+			System.out.println("That Well does not have a Compound.");
+		}
+		prompt();
 	}
+
+	public static String compoundRequestHelper(String wellID) {
+		String[] seperator=seperateIDs(wellID);
+		Plate plate=getPlate(seperator[0]);
+		String compound=plate.returnCompound(seperator[1]);
+		return compound;
+	}
+
 	public static String[] seperateIDs(String ID) {
 		int periodPoint=0;
 		String[] seperator=new String[2];
